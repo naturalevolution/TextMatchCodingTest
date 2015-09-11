@@ -1,0 +1,33 @@
+﻿@using TextMatch.Common.Messages
+@model TextMatch.Models.StringMatchModel
+<div class="row">
+    @using(Html.BeginForm("Match", "Home")) {
+        @Html.AntiForgeryToken() 
+        <div class="form-group">
+            @Html.LabelFor(m => m.Text)
+            @Html.TextBoxFor(m => m.Text, new {@class="form-control"})
+            @Html.ValidationMessageFor(m => m.Text)
+        </div>
+        <div class="form-group">
+             @Html.LabelFor(m => m.SubText)
+             @Html.TextBoxFor(m => m.SubText, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SubText)
+        </div>
+        if (Model != null)
+        {
+            <div class="form-group">
+                @if (Model.Positions.Count > 0)
+                { 
+                    @Html.LabelFor(m => m.Positions)
+                    @Model.ShowPosition
+                }
+                else
+                { 
+                    @Html.LabelFor(m => m.Positions)
+                    @TextMatchResource.NoResult 
+                }
+            </div>
+        }
+        <button type="submit" class="btn btn-default">@FrontResource.Button_Submit</button>
+    }
+</div>
